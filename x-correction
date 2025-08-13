@@ -1,0 +1,25 @@
+/*
+
+1 created the app.config.js file with to process the api key
+in the .env folder 
+for that i cerat the file and worte tha followings
+
+import 'dotenv/config';
+
+export default {
+  expo: {
+    // ...other Expo config like name, slug, etc.
+    extra: {
+      MOVIE_API_KEY: process.env.MOVIE_API_KEY,
+    },
+  },
+};
+
+After the that in the fetch file
+
+import Constants from 'expo-constants';
+
+console.log('API Key from Constants:', Constants.expoConfig?.extra?.MOVIE_API_KEY);
+
+
+*/

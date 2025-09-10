@@ -6,7 +6,7 @@ import { icons } from '@/constants/icons'
 const MovieCard = ({id,poster_path,title,vote_average,release_date}:Movie) => {
   return (
     <View className='w-[30%]'>
-        <Link href={`/movie/${id}`} asChild>
+        <Link href={`/movies/${id}`} asChild>
         <TouchableOpacity >
           <Image
           source={{

@@ -6,6 +6,7 @@ import useFetch from '@/sevices/useFetch'
 import { icons } from '@/constants/icons'
 import { fetchMovise } from '@/sevices/api'
 import SearchBar from '@/components/SearchBar'
+import { updateSearchCount } from '@/sevices/appwirte'
 
 
 const search = () => {
@@ -15,12 +16,19 @@ const search = () => {
   }),false)
 
 useEffect(()=>{
+
   const timeOutId=setTimeout(async()=>{
+
     if( SearchQuery.trim())
     {
-      await loadmovies();
+      const sucess=await loadmovies();
+      if (sucess?.length>0)
+      {
+        await updateSearchCount(SearchQuery,sucess[0])
+      }
     }
     else{
+      console.log('reset used')
       reset()
     }
 

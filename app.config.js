@@ -42,6 +42,10 @@ export default {
     },
     extra: {
       MOVIE_API_KEY: process.env.MOVIE_API_KEY,
+      APPWRITE_PROJECT_ID:process.env.APPWRITE_PROJECT_ID,
+      EXPO_PUBLIC_DATABASE_ID:process.env.EXPO_PUBLIC_DATABASE_ID,
+      EXPO_PUBLIC_COLLECTION_ID:process.env.EXPO_PUBLIC_COLLECTION_ID,
+
     }
   }
 };

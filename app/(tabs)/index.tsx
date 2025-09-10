@@ -7,9 +7,19 @@ import { useRouter } from "expo-router";
 import useFetch from "@/sevices/useFetch";
 import { fetchMovise } from "@/sevices/api";
 import MovieCard from "@/components/MovieCard";
+import { getTrendingMovies } from "@/sevices/appwirte";
+import TrendingCard from "@/components/TrendingCard";
 
 export default function Index() {
   const router= useRouter();
+ 
+  const {
+    data:tredingMovies,
+    loading:trendingLoading,
+    error:trendingError
+
+  }=useFetch(getTrendingMovies)
+
   const { data:movies,loading:moviesloading,error:moviesError}=useFetch(()=>fetchMovise({
     query:''
   }))
@@ -29,14 +39,14 @@ export default function Index() {
 <Text className="text-white">{String(moviesError)}</Text> */}
 
 
-        {moviesloading?(
+        {moviesloading||trendingLoading?(
           <ActivityIndicator
           size='large'
           color="#0000ff"
           className="mt-10 self-center"
           />
-        ):moviesError?(
-          <Text className="text-white">Error : {moviesError?.message}</Text>
+        ):moviesError||trendingError?(
+          <Text className="text-white">Error : {moviesError?.message||trendingError?.message}</Text>
         ):(
 
           <View className="flex-1 mt-5">
@@ -44,6 +54,25 @@ export default function Index() {
           onPress={()=>router.push('/search')}
           placeholder='Search for a movie'
           />
+
+          {tredingMovies&&(
+            <View className="mt-10">
+              <Text className="text-white text-lg font-bold mb-3 ">
+                Trending movies
+              </Text>
+              <FlatList 
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              ItemSeparatorComponent={()=>(<View className="w-4"></View>)}
+             
+              data={tredingMovies} 
+              renderItem={({item,index})=>(
+               <TrendingCard movie={item} index={index}/>)}
+              keyExtractor={(item)=>item.movie_id.toString()}
+              />
+            </View>
+          )}
+
           <>
           <Text className="text-lg text-white font-bold mt-5 mb-3">
             Latest Movies

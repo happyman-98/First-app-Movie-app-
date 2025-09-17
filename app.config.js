@@ -11,14 +11,16 @@ export default {
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier":"com.bandhan.movieapp.ios"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/logo.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package":'com.bandhan.movieapp'
     },
     "web": {
       "bundler": "metro",
@@ -45,7 +47,7 @@ export default {
       APPWRITE_PROJECT_ID:process.env.APPWRITE_PROJECT_ID,
       EXPO_PUBLIC_DATABASE_ID:process.env.EXPO_PUBLIC_DATABASE_ID,
       EXPO_PUBLIC_COLLECTION_ID:process.env.EXPO_PUBLIC_COLLECTION_ID,
-
+      EXPO_SAVE_MOVIES_COLLECTION_ID:process.env.EXPO_SAVE_MOVIES_COLLECTION_ID,
     }
   }
 };

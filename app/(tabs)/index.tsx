@@ -77,7 +77,6 @@ export default function Index() {
           <Text className="text-lg text-white font-bold mt-5 mb-3">
             Latest Movies
           </Text>
-          <Text className="text-white"></Text>
           <FlatList 
           data={movies || []}
           renderItem={({item})=>(

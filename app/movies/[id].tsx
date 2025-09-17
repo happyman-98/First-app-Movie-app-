@@ -1,9 +1,12 @@
 import { Image, ScrollView, StyleSheet, Text, TextComponent, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { router, useLocalSearchParams } from 'expo-router'
 import useFetch from '@/sevices/useFetch';
-import { fetchMoviseDetails } from '@/sevices/api';
+import { fetchMoviseDetails} from '@/sevices/api';
 import { icons } from '@/constants/icons';
+import { checkMovies, deletMovies, saveMovies } from '@/sevices/saveMovies';
+import { getCurrentUser } from '@/sevices/loginpage';
+
 
 interface MovieInfoProps {
   label:string,
@@ -22,8 +25,46 @@ const Movieinfo=({label,value}:MovieInfoProps)=>(
 )
 
 const moviedetials = () => {
+
+  const {data:user}=useFetch(getCurrentUser)
+    
     const {id}=useLocalSearchParams();
     const {data:movie,loading}=useFetch(()=>fetchMoviseDetails(id as string))
+
+
+// for the save movie part
+  const [isActive,setIsActive]=useState(false);
+useEffect(()=>{
+  
+  const checkMovieSaved=async()=>{
+
+    if (!movie) return;
+      const {movieExist,doccumentId}= await checkMovies(movie)
+      if (movieExist)
+      {
+        setIsActive(true)
+      }
+    
+  }
+  checkMovieSaved();
+},[movie])
+
+
+
+
+ const handlepress =async()=>{
+    setIsActive(!isActive);
+    const {movieExist,doccumentId}= await checkMovies(movie)
+    if (movieExist){
+      setIsActive(false)
+      deletMovies(doccumentId)
+    }
+    else{
+      saveMovies(movie,user?.$id)
+      setIsActive(true)
+    }
+  }
+
 
 
   return (
@@ -35,10 +76,12 @@ const moviedetials = () => {
           <Image source={{uri:`https://image.tmdb.org/t/p/w500${movie?.poster_path}`}} className='w-full h-[500px]'
           resizeMode='stretch'/>
           <View className='flex-col items-start justify-center mt-5 px-5'>
-      <Text className='text-white font-bold text-xl'>
+            <View className='flex-row justify-between'>
+      <Text className='text-white font-bold text-xl w-full'>
         {movie?.title}
       </Text>
-
+      <TouchableOpacity onPress={handlepress}><Image source={isActive? icons.savedsmall:icons.savesmall}/></TouchableOpacity>
+</View>
       <View className="flex-row items-center gap-x-1 text-sm mt-2">
       <Text className='text-light-200 text-sm'>{movie?.release_date.split('-')[0]}</Text>
       <Text className='text-light-200 text-sm'>{movie?.runtime} min</Text>

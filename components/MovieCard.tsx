@@ -28,7 +28,7 @@ const MovieCard = ({id,poster_path,title,vote_average,release_date}:Movie) => {
 </View>
 
 <View className='flex-row items-center justify-between'>
-<Text className='text-white text-xs mt-1'>{release_date.split('-')[0]}</Text>
+<Text className='text-white text-xs mt-1'>{release_date?release_date.split('-')[0]:'N/a\A'}</Text>
           {/* <Text className='text-lime-300 uppercase font-mw
           text-xs'>Movie</Text> */}
 </View>

@@ -17,7 +17,7 @@ export const updateSearchCount=async(query:string,movie:Movie)=>{
 
  try{
 
- 
+   
     const result=await database.listDocuments(EXPO_PUBLIC_DATABASE_ID,EXPO_PUBLIC_COLLECTION_ID,[Query.equal('searchTerm',normalizedQuery)]);
     console.log(result)
 if (result.documents.length>0)
@@ -53,6 +53,8 @@ console.log(`new data was added ${query}` )
  }
 
 }
+
+
 export const getTrendingMovies =async():Promise<TrendingMovie[]| undefined> =>
 {
  try{

@@ -22,6 +22,11 @@ interface TrendingMovie {
   count: number;
   poster_url: string;
 }
+interface SavedMoveis{
+  poster_url:string;
+  title:string;
+  movie_id:number;
+}
 
 interface MovieDetails {
   adult: boolean;
@@ -74,4 +79,16 @@ interface MovieDetails {
 interface TrendingCardProps {
   movie: TrendingMovie;
   index: number;
+}
+
+interface SaveCardProps{
+  movie:SavedMoveis;
+}
+interface user{
+  email:string;
+  password:string;
+  firstName?:string;
+  lastName?:string;
+  $id?:string;
+  
 }

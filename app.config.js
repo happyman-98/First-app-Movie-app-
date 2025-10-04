@@ -48,6 +48,9 @@ export default {
       EXPO_PUBLIC_DATABASE_ID:process.env.EXPO_PUBLIC_DATABASE_ID,
       EXPO_PUBLIC_COLLECTION_ID:process.env.EXPO_PUBLIC_COLLECTION_ID,
       EXPO_SAVE_MOVIES_COLLECTION_ID:process.env.EXPO_SAVE_MOVIES_COLLECTION_ID,
+      eas: {
+        projectId: "e27177ee-e709-4335-a9f2-569229818e0f" 
+      }
     }
   }
 };
